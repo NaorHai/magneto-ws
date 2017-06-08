@@ -23,25 +23,32 @@ app.use((req, res, next) => {
 
 app.get('/getAllMixes', (req, res, next) => {
     res.set('header-Two', 'All data');
-    magnetoModule().getAllMixes()
-        .then((result) => {
-            result.length === 0 ? next() : res.json({"Mixes": result});
-        })
-        .catch((error) =>{
-            console.error(error);
-            next();
+    magnetoModule().getAllMixes().then((result) => {
+        result.length === 0 ? next() : res.json({"Mixes": result});
+    }).catch((error) =>{
+        console.error(error);
+        next();
     });
 });
 
 app.get('/getAllTracks', (req, res, next) => {
     res.set('header-Two', 'All data');
-    magnetoModule().getAllTracks()
+    magnetoModule().getAllTracks().then((result) => {
+        result.length === 0 ? next() : res.json({"Tracks": result});
+    }).catch((error) =>{
+        console.error(error);
+        next();
+    });
+});
+
+app.post('/getDataByDate/', (req, res) => {
+    console.log("In post app");
+    res.set('header-Four', 'One data, post');
+    let movie = req.body.date; // create bodyParser var
+    dataByName(movie)
         .then((result) => {
-            result.length === 0 ? next() : res.json({"Tracks": result});
-        })
-        .catch((error) =>{
-            console.error(error);
-            next();
+            result.length === 0 ? res.status(200).json({error: "wrong input, try again"}) :
+                res.status(200).json({"All data by date cut": result}); // return the data with json if result not empty
         });
 });
 
