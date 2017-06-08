@@ -25,7 +25,7 @@ app.get('/getAllMixes', (req, res, next) => {
     res.set('header-Two', 'All data');
     magnetoModule().getAllMixes()
         .then((result) => {
-            result.length === 0 ? next() : res.status(200).json({"Mixes": result});
+            result.length === 0 ? next() : res.json({"Mixes": result});
         })
         .catch((error) =>{
             console.error(error);
@@ -37,7 +37,7 @@ app.get('/getAllTracks', (req, res, next) => {
     res.set('header-Two', 'All data');
     magnetoModule().getAllTracks()
         .then((result) => {
-            result.length === 0 ? next() : res.status(200).json({"Tracks": result});
+            result.length === 0 ? next() : res.json({"Tracks": result});
         })
         .catch((error) =>{
             console.error(error);
