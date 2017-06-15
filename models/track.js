@@ -4,7 +4,8 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-    schema = mongoose.Schema,
+      schema   = mongoose.Schema,
+
     track = new schema({
         track_id: {type:Number, index:1, required:true, unique:true},
         track_name: String,
@@ -12,9 +13,9 @@ const mongoose = require('mongoose'),
         length: Number,
         src: String,
         img_src: String
-    }, {collection: 'tracks'}),
-    Tracks = mongoose.model('Tracks', track);
+    },{strict: true});
 
-module.exports={
-    Tracks : Tracks
-};
+
+let Track = mongoose.model('Track', track);
+
+module.exports = Track;

@@ -4,7 +4,7 @@
 'use strict';
 
 const mongoose = require('mongoose'),
-    schema = mongoose.Schema,
+      schema   = mongoose.Schema,
     mix = new schema({
         mix_name: {type:String, index:1, required:true, unique:true},
         creator: String,
@@ -12,9 +12,8 @@ const mongoose = require('mongoose'),
         img_src: String,
         length: Number,
         tracks_id:[Number]
-    }, {collection: 'mixes'}),
-    Mixes = mongoose.model('Mixes', mix);
+    },{strict: true});
 
-module.exports={
-    Mixes : Mixes
-};
+let Mix = mongoose.model('Mix', mix);
+
+module.exports = Mix;
