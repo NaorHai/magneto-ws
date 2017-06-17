@@ -23,6 +23,8 @@ app.get('/getAllMixes', magneto.getAllMixes);
 
 app.get('/get/:mixName', magneto.getTtacksByMixName);
 
+app.get('/getRandomTracks', magneto.getRandomTracks);
+
 app.listen(port,
     () => {
         console.log(`listening on port ${port}`);

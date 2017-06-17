@@ -38,3 +38,13 @@ let TRACK = require('../models/track');
                 });
             });
     };
+
+    exports.getRandomTracks = function (req, res) {
+        TRACK.aggregate({ $sample: { size: 5 }},
+            (err, tracks) => {
+                if (err) console.log(`query error: ${err}`);
+                console.log(tracks);
+                res.json(tracks);
+            })
+
+    };
