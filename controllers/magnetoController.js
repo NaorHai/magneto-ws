@@ -27,28 +27,14 @@ let TRACK = require('../models/track');
     };
 
     exports.getTtacksByMixName = function (req, res) {
-
-
         MIX.find({mix_name:{$eq:req.params.mixName}},
-            (err,data)=>{
+            (err,mix) => {
                 if (err) console.log(`query error: ${err}`);
-            console.log(data);
-
+                TRACK.find({track_id:{$in: mix[0].tracks_id}},
+                    (err, tracks ) => {
+                        if (err) console.log(`query error: ${err}`);
+                        console.log(tracks);
+                        res.json(tracks);
+                });
             });
-
-
     };
-
-
-
-    // getTracksById(id1,id2, id3) {
-    //     return new Promise( (resolve,reject) =>{
-    //         Movies.find({track_id: {$eq: id1} || {$eq: id2} || {$eq: id3} }, (err, result) => {
-    //             if (err) reject(err);
-    //             else {
-    //                 console.log(`Got data from db: ${result}`);
-    //                 resolve(result);
-    //             }
-    //         });
-    //     });
-    // }
