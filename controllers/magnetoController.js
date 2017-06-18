@@ -40,11 +40,20 @@ let TRACK = require('../models/track');
     };
 
     exports.getRandomTracks = function (req, res) {
-        TRACK.aggregate({ $sample: { size: 5 }},
+        TRACK.aggregate({ $sample: { size: req.params.trackCount }},
             (err, tracks) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(tracks);
                 res.json(tracks);
             })
 
+    };
+
+    exports.getRandomMixes = function (req, res) {
+        MIX.aggregate({ $sample: { size: req.params.mixCount }},
+            (err, mix) => {
+                if (err) console.log(`query error: ${err}`);
+                console.log(mix);
+                res.json(mix);
+            })
     };

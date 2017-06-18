@@ -23,7 +23,9 @@ app.get('/getAllMixes', magneto.getAllMixes);
 
 app.get('/get/:mixName', magneto.getTtacksByMixName);
 
-app.get('/getRandomTracks', magneto.getRandomTracks);
+app.get('/getRandomTracks/:trackCount', magneto.getRandomTracks);
+
+app.get('/getRandomMixes/:mixCount', magneto.getRandomMixes);
 
 app.listen(port,
     () => {
