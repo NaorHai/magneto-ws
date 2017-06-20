@@ -3,13 +3,22 @@
  */
 'use strict';
 
-const   mongoose = require('mongoose');
+// const   mongoose = require('mongoose');
 
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
 
+
+    exports.goToHome = function (req, res) {
+        res.sendfile(`../${__dirname}/index.html`);
+    };
+
+    exports.errorHandling = function (req, res) {
+        res.json({"error": "404 - not found (Wrong input or Wrong url)"});
+    };
+
     exports.getAllTracks = function (req, res) {
-        TRACK.find({},
+        TRACK.find({}, '-_id',
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(data);
@@ -18,7 +27,7 @@ let TRACK = require('../models/track');
     };
 
     exports.getAllMixes = function (req, res) {
-        MIX.find({},
+        MIX.find({},'-_id',
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(data);
@@ -27,7 +36,7 @@ let TRACK = require('../models/track');
     };
 
     exports.getTtacksByMixName = function (req, res) {
-        MIX.find({mix_name:{$eq:req.params.mixName}},
+        MIX.find({mix_name:{$eq:req.params.mixName}},'-_id',
             (err,mix) => {
                 if (err) console.log(`query error: ${err}`);
                 TRACK.find({track_id:{$in: mix[0].tracks_id}},
@@ -40,7 +49,7 @@ let TRACK = require('../models/track');
     };
 
     exports.getRandomTracks = function (req, res) {
-        TRACK.aggregate({ $sample: { size: parseInt(req.params.trackCount) }},
+        TRACK.aggregate({ $sample: { size: parseInt(req.params.trackCount) }},'-_id',
             (err, tracks) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(tracks);
@@ -50,7 +59,7 @@ let TRACK = require('../models/track');
     };
 
     exports.getRandomMixes = function (req, res) {
-        MIX.aggregate({ $sample: { size: parseInt(req.params.mixCount) }},
+        MIX.aggregate({ $sample: { size: parseInt(req.params.mixCount) }},'-_id',
             (err, mix) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(mix);

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="assets/style.css" rel=stylesheet>
+    <title>Magneto API</title>
+</head>
+<body>
+<h1>Magneto API</h1>
+<div>
+    <h3>All Magneto Tracks</h3>
+    <p>GET request for getting all tracks</p>
+    <a target="_blank" href="https://magneto-ws.herokuapp.com/getAllTracks">https://magneto-ws.herokuapp.com/getAllTracks</a>
+</div>
+<div>
+    <h3>All Magneto Mixes</h3>
+    <p>GET request for getting all mixes</p>
+    <a target="_blank" href="https://magneto-ws.herokuapp.com/getAllMixes">https://magneto-ws.herokuapp.com/getAllMixes</a>
+</div>
+<div>
+    <h3>Get tracks by mix name</h3>
+    <p>GET request for getting all mix tracks</p>
+    <a target="_blank" href="https://magneto-ws.herokuapp.com/get/first mix">https://magneto-ws.herokuapp.com/get/first mix</a>
+</div>
+<div>
+    <h3>Get random tracks</h3>
+    <p>GET request for getting random tracks by sending an integer</p>
+    <a target="_blank" href="https://magneto-ws.herokuapp.com/getRandomTracks/4">https://magneto-ws.herokuapp.com/getRandomTracks/4</a>
+</div>
+<div>
+    <h3>Get random mixes</h3>
+    <p>GET request for getting random mixes by sending an integer</p>
+    <a target="_blank" href="https://magneto-ws.herokuapp.com/getRandomMixes/5">https://magneto-ws.herokuapp.com/getRandomMixes/5</a>
+</div>
+<div class="json">
+    <h3>Mix json example</h3>
+    {
+    <p>"mix_name": "first mix",</p>
+    <p>"creator": "papushe",</p>
+    <p>"creation_date": "08/06/2017 10:00",</p>
+    <p>"img_src": "images/first_mix.png",</p>
+    <p>"length": 816000,</p>
+    <p>"tracks_id": [1, 2, 3]</p>
+    }
+</div>
+<div class="json">
+    <h3>Track json example</h3>
+    {
+    <p>"track_id": 1,</p>
+    <p>"track_name": "Disconnected",</p>
+    <p>"creator": "Pegboard Nerds",</p>
+    <p>"length": 241000,</p>
+    <p>"src": "https://www.youtube.com/...</p>
+    <p>"img_src": "https://yt3.ggpht.com/-ZeRv929WhoQ/...</p>
+    }
+</div>
+<div class="json">
+    <h3>Error handling</h3>
+    {
+    <p>"error": "404 - not found (Wrong input or Wrong url)"</p>
+    }
+</div>
+</body>
+</html>
