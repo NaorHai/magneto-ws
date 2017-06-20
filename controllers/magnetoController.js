@@ -47,7 +47,7 @@ let TRACK = require('../models/track');
     };
 
     exports.getRandomTracks = function (req, res) {
-        TRACK.aggregate({ $sample: { size: parseInt(req.params.trackCount) }},'-_id',
+        TRACK.aggregate({ $sample: { size: parseInt(req.params.trackCount) }},
             (err, tracks) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(tracks);
@@ -57,7 +57,7 @@ let TRACK = require('../models/track');
     };
 
     exports.getRandomMixes = function (req, res) {
-        MIX.aggregate({ $sample: { size: parseInt(req.params.mixCount) }},'-_id',
+        MIX.aggregate({ $sample: { size: parseInt(req.params.mixCount) }},
             (err, mix) => {
                 if (err) console.log(`query error: ${err}`);
                 console.log(mix);
