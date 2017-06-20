@@ -3,8 +3,6 @@
  */
 'use strict';
 
-// const   mongoose = require('mongoose');
-
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
 
