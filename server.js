@@ -26,7 +26,7 @@ app.get('/getAllTracks', magneto.getAllTracks);
 
 app.get('/getAllMixes', magneto.getAllMixes);
 
-app.get('/get/:mixName', magneto.getTtacksByMixName);
+app.get('/get/:mixName', magneto.getTracksByMixName);
 
 app.get('/getRandomTracks/:trackCount', magneto.getRandomTracks);
 
