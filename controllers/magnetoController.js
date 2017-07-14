@@ -66,8 +66,12 @@ let TRACK = require('../models/track');
     };
 
     exports.createNewMix = function (req, res) {
-    let newMix = new MIX(req.params.mix_name, req.params.creator, req.params.creation_date, req.params.img_src,
-                        parseInt(req.params.length), req.params.tracks_id);
+    let newMix = new MIX(   req.params.mix_name,
+                            req.params.creator,
+                            req.params.creation_date,
+                            req.params.img_src,
+                            parseInt(req.params.length),
+                            req.params.tracks_id);
 
         newMix.save((err, newMix) => {
             if (err)  console.error(`${err} something went wrong - mix was not saved properly!`);
