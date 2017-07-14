@@ -33,7 +33,7 @@ let TRACK = require('../models/track');
             })
     };
 
-    exports.getTtacksByMixName = function (req, res) {
+    exports.getTracksByMixName = function (req, res) {
         MIX.find({mix_name:{$eq:req.params.mixName}},'-_id',
             (err,mix) => {
                 if (err) console.log(`query error: ${err}`);
