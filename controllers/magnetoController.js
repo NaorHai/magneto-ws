@@ -81,13 +81,15 @@ let TRACK = require('../models/track');
     };
 
     exports.dropMix = function (req, res) {
-        MIX.findOneAndRemove({mix_name:{$eq:req.params.mixName}},
+        MIX.remove({mix_name:{$eq:req.params.mixName}},
             (err,mix) => {
                 if (err) {
                     console.log(`query error: ${err}`);
-                    res.json(false);
+                    // res.json(false);
                 }
-                else console.log(`${mix} was deleted successfully!`);
-                res.json(true);
+                else{
+                    console.log(`${mix} was deleted successfully!`);
+                }
+                // res.json(true);
             });
     };
