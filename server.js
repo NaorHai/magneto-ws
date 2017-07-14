@@ -34,7 +34,7 @@ app.get('/getRandomMixes/:mixCount', magneto.getRandomMixes);
 
 app.get('/createNewMix', magneto.createNewMix);
 
-app.get('/dropMix:mixName', magneto.dropMix);
+app.get('/dropMix/:mixName', magneto.dropMix);
 
 app.all('*', magneto.errorHandling);
 
