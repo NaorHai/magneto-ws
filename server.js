@@ -34,6 +34,8 @@ app.get('/getRandomMixes/:mixCount', magneto.getRandomMixes);
 
 app.get('/createNewMix', magneto.createNewMix);
 
+app.get('/dropMix', magneto.dropMix);
+
 app.all('*', magneto.errorHandling);
 
 app.listen(port, () => {console.log(`listening on port ${port}`);});
