@@ -32,6 +32,8 @@ app.get('/getRandomTracks/:trackCount', magneto.getRandomTracks);
 
 app.get('/getRandomMixes/:mixCount', magneto.getRandomMixes);
 
+app.get('/createNewMix', magneto.createNewMix);
+
 app.all('*', magneto.errorHandling);
 
 app.listen(port, () => {console.log(`listening on port ${port}`);});
