@@ -32,7 +32,7 @@ app.get('/getRandomTracks/:trackCount', magneto.getRandomTracks);
 
 app.get('/getRandomMixes/:mixCount', magneto.getRandomMixes);
 
-app.get('/createNewMix', magneto.createNewMix);
+app.get('/createNewMix/:mixName/:creator/:trackId1/:trackId2/:trackId3', magneto.createNewMix);
 
 app.get('/dropMix/:mixName', magneto.dropMix);
 

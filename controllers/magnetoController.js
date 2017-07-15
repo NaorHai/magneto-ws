@@ -66,30 +66,28 @@ let TRACK = require('../models/track');
     };
 
     exports.createNewMix = function (req, res) {
-    let newMix = new MIX(   req.params.mix_name,
-                            req.params.creator,
-                            req.params.creation_date,
-                            req.params.img_src,
-                            parseInt(req.params.length),
-                            req.params.tracks_id);
-
-        newMix.save((err, newMix) => {
+        let fullDate = new Date();
+        let newMix = new MIX({ mix_name: req.params.mixName,
+                            creator: req.params.creator,
+                            creation_date: fullDate,
+                            img_src: 'assets/mixTiles/mix11.jpg',
+                            length: 123000,
+                            tracks_id: [
+                                req.params.trackId1,
+                                req.params.trackId2,
+                                req.params.trackId3,
+                            ]});
+        newMix.save(
+            (err) => {
             if (err)  console.error(`${err} something went wrong - mix was not saved properly!`);
-            console.log(`new mix: ${newMix.mix_name} was been saved successfully`)
-        });
-        res.json(newMix);
+            console.log(`new mix: ${newMix} was been saved successfully`)
+            }
+        );
     };
-
     exports.dropMix = function (req, res) {
         MIX.remove({mix_name:{$eq:req.params.mixName}},
             (err,mix) => {
-                if (err) {
-                    console.log(`query error: ${err}`);
-                    // res.json(false);
-                }
-                else{
-                    console.log(`${mix} was deleted successfully!`);
-                }
-                // res.json(true);
+                if (err) console.log(`query error: ${err}`);
+                else console.log(`${mix} was deleted successfully!`);
             });
     };
