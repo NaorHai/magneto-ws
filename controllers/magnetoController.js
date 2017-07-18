@@ -33,7 +33,9 @@ let TRACK = require('../models/track');
             })
     };
 
-    exports.getTracksByMixName = function (req, res) {
+
+
+exports.getTracksByMixName = function (req, res) {
         MIX.find({mix_name:{$eq:req.params.mixName}},'-_id',
             (err,mix) => {
                 if (err) console.log(`query error: ${err}`);
@@ -41,6 +43,7 @@ let TRACK = require('../models/track');
                     (err, tracks ) => {
                         if (err) console.log(`query error: ${err}`);
                         console.log(tracks);
+
                         res.json(tracks);
                 });
             });
@@ -65,24 +68,62 @@ let TRACK = require('../models/track');
             })
     };
 
+//   exports.getTracksLength = function(track1, track2 ,track3) {
+//     let length = 0;
+//     TRACK.find({track_id:{$eq:track1}},
+//         (err, tracks ) => {
+//             if (err) console.log(`query error: ${err}`);
+//             length += tracks[0].length;
+//             TRACK.find({track_id:{$eq:track2}},
+//                 (err, tracks ) => {
+//                     if (err) console.log(`query error: ${err}`);
+//                     length = tracks[0].length;
+//                     TRACK.find({track_id:{$eq:track3}},
+//                         (err, tracks ) => {
+//                             if (err) console.log(`query error: ${err}`);
+//                             length += tracks[0].length;
+//                             console.log(length);
+//                             return length;
+//                         });
+//                 });
+//     });
+// };
+
+
     exports.createNewMix = function (req, res) {
-        let fullDate = new Date();
-        let newMix = new MIX({ mix_name: req.params.mixName,
-                            creator: req.params.creator,
-                            creation_date: fullDate,
-                            img_src: 'assets/mixTiles/mix11.jpg',
-                            length: 123000,
-                            tracks_id: [
-                                req.params.trackId1,
-                                req.params.trackId2,
-                                req.params.trackId3,
-                            ]});
-        newMix.save(
-            (err) => {
-            if (err)  console.error(`${err} something went wrong - mix was not saved properly!`);
-            console.log(`new mix: ${newMix} was been saved successfully`)
-            }
-        );
+        let length = 0;
+        TRACK.find({track_id:{$eq:req.params.trackId1}},
+            (err, tracks ) => {
+                if (err) console.log(`query error: ${err}`);
+                length = tracks[0].length;
+                TRACK.find({track_id:{$eq:req.params.trackId2}},
+                    (err, tracks ) => {
+                        if (err) console.log(`query error: ${err}`);
+                        length += tracks[0].length;
+                        TRACK.find({track_id:{$eq:req.params.trackId3}},
+                            (err, tracks ) => {
+                                if (err) console.log(`query error: ${err}`);
+                                length += tracks[0].length;
+                                let fullDate = new Date();
+                                let newMix = new MIX({ mix_name: req.params.mixName,
+                                    creator: req.params.creator,
+                                    creation_date: fullDate,
+                                    img_src: 'assets/mixTiles/mix11.jpg',
+                                    length: length,
+                                    tracks_id: [
+                                        req.params.trackId1,
+                                        req.params.trackId2,
+                                        req.params.trackId3,
+                                    ]});
+                                newMix.save(
+                                    (err) => {
+                                        if (err)  console.error(`${err} something went wrong - mix was not saved properly!`);
+                                        console.log(`new mix: ${newMix} was been saved successfully`)
+                                    }
+                                );
+                            });
+                    });
+            });
     };
     exports.dropMix = function (req, res) {
         MIX.remove({mix_name:{$eq:req.params.mixName}},
