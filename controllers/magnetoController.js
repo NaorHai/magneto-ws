@@ -67,29 +67,6 @@ exports.getTracksByMixName = function (req, res) {
                 res.json(mix);
             })
     };
-
-//   exports.getTracksLength = function(track1, track2 ,track3) {
-//     let length = 0;
-//     TRACK.find({track_id:{$eq:track1}},
-//         (err, tracks ) => {
-//             if (err) console.log(`query error: ${err}`);
-//             length += tracks[0].length;
-//             TRACK.find({track_id:{$eq:track2}},
-//                 (err, tracks ) => {
-//                     if (err) console.log(`query error: ${err}`);
-//                     length = tracks[0].length;
-//                     TRACK.find({track_id:{$eq:track3}},
-//                         (err, tracks ) => {
-//                             if (err) console.log(`query error: ${err}`);
-//                             length += tracks[0].length;
-//                             console.log(length);
-//                             return length;
-//                         });
-//                 });
-//     });
-// };
-
-
     exports.createNewMix = function (req, res) {
         let length = 0;
         TRACK.find({track_id:{$eq:req.params.trackId1}},
