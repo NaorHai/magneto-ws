@@ -12,7 +12,8 @@ const mongoose = require('mongoose'),
         creator: String,
         length: Number,
         src: String,
-        img_src: String
+        img_src: String,
+        description: String
     },{strict: true});
 
 
