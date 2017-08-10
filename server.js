@@ -19,7 +19,7 @@ app.use(
 
 /* All routes  */
 app.get('/', (req,res) =>{
-    res.sendfile(`${__dirname}/index.html`);
+    res.sendFile(`${__dirname}/index.html`);
 });
 
 app.get('/getAllTracks', magneto.getAllTracks);

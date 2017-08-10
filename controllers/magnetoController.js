@@ -5,7 +5,15 @@
 
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
+let moment = require('moment');
 
+let cgetAllTracks = 0;
+let cgetAllMixes = 0;
+let cgetTracksByMixName = 0;
+let cgetRandomTracks = 0;
+let cgetRandomMixes = 0;
+let ccreateNewMix = 0;
+let cdropMix = 0;
 
     exports.goToHome = function (req, res) {
         res.sendfile(`../${__dirname}/index.html`);
@@ -19,7 +27,8 @@ let TRACK = require('../models/track');
         TRACK.find({}, '-_id',
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
-                console.log(data);
+                cgetAllTracks++;
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 res.json(data);
             })
     };
@@ -28,7 +37,8 @@ let TRACK = require('../models/track');
         MIX.find({},'-_id',
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
-                console.log(data);
+                cgetAllMixes++;
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
                 res.json(data);
             })
     };
@@ -42,8 +52,8 @@ exports.getTracksByMixName = function (req, res) {
                 TRACK.find({track_id:{$in: mix[0].tracks_id}},
                     (err, tracks ) => {
                         if (err) console.log(`query error: ${err}`);
-                        console.log(tracks);
-
+                        cgetTracksByMixName++;
+                        console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
                         res.json(tracks);
                 });
             });
@@ -53,7 +63,8 @@ exports.getTracksByMixName = function (req, res) {
         TRACK.aggregate({ $sample: { size: parseInt(req.params.trackCount) }},
             (err, tracks) => {
                 if (err) console.log(`query error: ${err}`);
-                console.log(tracks);
+                cgetRandomTracks++;
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
                 res.json(tracks);
             })
 
@@ -63,10 +74,12 @@ exports.getTracksByMixName = function (req, res) {
         MIX.aggregate({ $sample: { size: parseInt(req.params.mixCount) }},
             (err, mix) => {
                 if (err) console.log(`query error: ${err}`);
-                console.log(mix);
+                cgetRandomMixes++;
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomMixes called:${cgetRandomMixes}`);
                 res.json(mix);
             })
     };
+
     exports.createNewMix = function (req, res) {
         let length = 0;
         TRACK.find({track_id:{$eq:req.params.trackId1}},
@@ -95,7 +108,9 @@ exports.getTracksByMixName = function (req, res) {
                                 newMix.save(
                                     (err) => {
                                         if (err)  console.error(`${err} something went wrong - mix was not saved properly!`);
-                                        console.log(`new mix: ${newMix} was been saved successfully`)
+                                        console.log(`new mix: ${newMix} was been saved successfully`);
+                                        ccreateNewMix++;
+                                        console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
                                     }
                                 );
                             });
@@ -107,5 +122,7 @@ exports.getTracksByMixName = function (req, res) {
             (err,mix) => {
                 if (err) console.log(`query error: ${err}`);
                 else console.log(`${mix} was deleted successfully!`);
+                cdropMix++;
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
             });
     };
