@@ -1,7 +1,7 @@
 /**
  * Created by Haimov on 15/06/2017.
  */
-const consts   = require('./config').properties.MLAB_KEY,
+const consts   = require('./config').properties.AWS,
     mongoose = require('mongoose');
 
 
