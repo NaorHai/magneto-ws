@@ -29,6 +29,7 @@ let cdropMix = 0;
                 if (err) console.log(`query error: ${err}`);
                 cgetAllTracks++;
                 console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
+                console.info("dsmdklsmds");
                 res.json(data);
             })
     };
