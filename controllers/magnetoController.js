@@ -24,6 +24,8 @@ lawgs.config({
 });
 
 const log  = lawgs.getOrCreate('SuperbowlLogs'); /* LogGroup */
+log.log('touchdown', { team: 'Patriots', weight: 7 });
+
 
 
 let cgetAllTracks = 0;
