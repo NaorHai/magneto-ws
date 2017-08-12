@@ -8,11 +8,6 @@ let TRACK = require('../models/track');
 let moment = require('moment');
 let lawgs = require('../node_modules/lawgs/index.js');
 
-logger.level = 'info';
-log4js.configure({
-    appenders: { logs: { type: 'file', filename: 'logs.log' } },
-    categories: { default: { appenders: ['logs'], level: 'info' } }
-});
 
 lawgs.config({
     aws: {
@@ -22,8 +17,8 @@ lawgs.config({
     }
 });
 
-const log  = lawgs.getOrCreate('MagnetoLogs'); /* LogGroup */
-log.log('magneto-stream', 'hello');
+const logger  = lawgs.getOrCreate('MagnetoLogs'); /* LogGroup */
+logger.log('magneto-stream', 'hello');
 
 
 
@@ -41,17 +36,16 @@ let cdropMix = 0;
     };
 
     exports.errorHandling = function (req, res) {
+        logger.log('magneto-stream', {"error": "404 - not found (Wrong input or Wrong url)"});
         res.json({"error": "404 - not found (Wrong input or Wrong url)"});
     };
 
     exports.getAllTracks = function (req, res) {
         TRACK.find({}, '-_id',
             (err, data) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 cgetAllTracks++;
-                log.log(`The Api: getAllTracks called:${cgetAllTracks}`);
-                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
+                logger.log('magneto-stream', `The Api: getAllTracks called:${cgetAllTracks}`);
                 res.json(data);
             })
     };
@@ -59,11 +53,9 @@ let cdropMix = 0;
     exports.getAllMixes = function (req, res) {
         MIX.find({},'-_id',
             (err, data) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 cgetAllMixes++;
-                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
-                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
+                logger.log('magneto-stream', `The Api: getAllMixes called:${cgetAllMixes}`);
                 res.json(data);
             })
     };
@@ -73,14 +65,12 @@ let cdropMix = 0;
 exports.getTracksByMixName = function (req, res) {
         MIX.find({mix_name:{$eq:req.params.mixName}},'-_id',
             (err,mix) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 TRACK.find({track_id:{$in: mix[0].tracks_id}},
                     (err, tracks ) => {
-                        if (err) console.log(`query error: ${err}`);
+                        if (err) logger.log('magneto-stream', `query error: ${err}`);
                         cgetTracksByMixName++;
-                        logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
-                        log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
-                        console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
+                        logger.log('magneto-stream', `The Api: getTracksByMixName called:${cgetTracksByMixName}`);
                         res.json(tracks);
                 });
             });
@@ -89,11 +79,9 @@ exports.getTracksByMixName = function (req, res) {
     exports.getRandomTracks = function (req, res) {
         TRACK.aggregate({ $sample: { size: parseInt(req.params.trackCount) }},
             (err, tracks) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 cgetRandomTracks++;
-                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
-                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
+                logger.log('magneto-stream', `The Api: getRandomTracks called:${cgetRandomTracks}`);
                 res.json(tracks);
             })
 
@@ -102,10 +90,9 @@ exports.getTracksByMixName = function (req, res) {
     exports.getRandomMixes = function (req, res) {
         MIX.aggregate({ $sample: { size: parseInt(req.params.mixCount) }},
             (err, mix) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 cgetRandomMixes++;
-                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomMixes called:${cgetRandomMixes}`);
-                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomMixes called:${cgetRandomMixes}`);
+                logger.log('magneto-stream', `The Api: getRandomMixes called:${cgetRandomMixes}`);
                 res.json(mix);
             })
     };
@@ -114,15 +101,15 @@ exports.getTracksByMixName = function (req, res) {
         let length = 0;
         TRACK.find({track_id:{$eq:req.params.trackId1}},
             (err, tracks ) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 length = tracks[0].length;
                 TRACK.find({track_id:{$eq:req.params.trackId2}},
                     (err, tracks ) => {
-                        if (err) console.log(`query error: ${err}`);
+                        if (err) logger.log('magneto-stream', `query error: ${err}`);
                         length += tracks[0].length;
                         TRACK.find({track_id:{$eq:req.params.trackId3}},
                             (err, tracks ) => {
-                                if (err) console.log(`query error: ${err}`);
+                                if (err) logger.log('magneto-stream', `query error: ${err}`);
                                 length += tracks[0].length;
                                 let fullDate = new Date();
                                 let newMix = new MIX({ mix_name: req.params.mixName,
@@ -137,12 +124,10 @@ exports.getTracksByMixName = function (req, res) {
                                     ]});
                                 newMix.save(
                                     (err) => {
-                                        if (err)  console.error(`${err} something went wrong - mix was not saved properly!`);
-                                        console.log(`new mix: ${newMix} was been saved successfully`);
+                                        if (err) logger.log('magneto-stream', `something went wrong - mix was not saved properly!: ${err}`);
+                                        logger.log('magneto-stream', `new mix: ${newMix} was been saved successfully`);
                                         ccreateNewMix++;
-                                        logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
-                                        log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
-                                        console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
+                                        logger.log('magneto-stream', `The Api: createNewMix called:${ccreateNewMix}`);
                                     }
                                 );
                             });
@@ -152,11 +137,9 @@ exports.getTracksByMixName = function (req, res) {
     exports.dropMix = function (req, res) {
         MIX.remove({mix_name:{$eq:req.params.mixName}},
             (err,mix) => {
-                if (err) console.log(`query error: ${err}`);
+                if (err) logger.log('magneto-stream', `query error: ${err}`);
                 else console.log(`${mix} was deleted successfully!`);
                 cdropMix++;
-                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
-                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
+                logger.log('magneto-stream', `TThe Api: dropMix called:${cdropMix}`);
             });
     };
