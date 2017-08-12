@@ -6,13 +6,26 @@
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
 let moment = require('moment');
-var log4js = require('log4js');
-var logger = log4js.getLogger();
+let config = require('../congig');
+let lawgs = require('./index');
+let log4js = require('log4js');
+const logger = log4js.getLogger();
 logger.level = 'info';
 log4js.configure({
     appenders: { logs: { type: 'file', filename: 'logs.log' } },
     categories: { default: { appenders: ['logs'], level: 'info' } }
 });
+
+lawgs.config({
+    aws: {
+        accessKeyId: config.accessKeyId, /* Optional if credentials are set in ~/.aws/credentials */
+        secretAccessKey: config.secretAccessKey, /* Optional */
+        region: config.region /* Required */
+    }
+});
+
+const log  = lawgs.getOrCreate('SuperbowlLogs'); /* LogGroup */
+
 
 let cgetAllTracks = 0;
 let cgetAllMixes = 0;
@@ -36,6 +49,7 @@ let cdropMix = 0;
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
                 cgetAllTracks++;
+                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 res.json(data);
@@ -48,6 +62,7 @@ let cdropMix = 0;
                 if (err) console.log(`query error: ${err}`);
                 cgetAllMixes++;
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
+                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
                 console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
                 res.json(data);
             })
@@ -64,6 +79,7 @@ exports.getTracksByMixName = function (req, res) {
                         if (err) console.log(`query error: ${err}`);
                         cgetTracksByMixName++;
                         logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
+                        log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
                         console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getTracksByMixName called:${cgetTracksByMixName}`);
                         res.json(tracks);
                 });
@@ -76,6 +92,7 @@ exports.getTracksByMixName = function (req, res) {
                 if (err) console.log(`query error: ${err}`);
                 cgetRandomTracks++;
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
+                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
                 console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomTracks called:${cgetRandomTracks}`);
                 res.json(tracks);
             })
@@ -88,7 +105,7 @@ exports.getTracksByMixName = function (req, res) {
                 if (err) console.log(`query error: ${err}`);
                 cgetRandomMixes++;
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomMixes called:${cgetRandomMixes}`);
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomMixes called:${cgetRandomMixes}`);
+                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getRandomMixes called:${cgetRandomMixes}`);
                 res.json(mix);
             })
     };
@@ -124,6 +141,7 @@ exports.getTracksByMixName = function (req, res) {
                                         console.log(`new mix: ${newMix} was been saved successfully`);
                                         ccreateNewMix++;
                                         logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
+                                        log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
                                         console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: createNewMix called:${ccreateNewMix}`);
                                     }
                                 );
@@ -138,6 +156,7 @@ exports.getTracksByMixName = function (req, res) {
                 else console.log(`${mix} was deleted successfully!`);
                 cdropMix++;
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
+                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
                 console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: dropMix called:${cdropMix}`);
             });
     };

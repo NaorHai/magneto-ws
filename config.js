@@ -7,6 +7,9 @@ module.exports = {
         MLAB_KEY: 'mongodb://db_usr:db_pass@ds115752.mlab.com:15752/magneto',
         AWS: 'mongodb://ec2-52-32-245-72.us-west-2.compute.amazonaws.com/',
         PORT:8898,
-        STATUS_OK:200
+        STATUS_OK:200,
+        accessKeyId: 'AKIAJQXEMDUMGL3OIYVQ', /* Optional if credentials are set in ~/.aws/credentials */
+        secretAccessKey: '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',
+        region: 'us-west-2'
     }
 };
