@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/NaorHai/magneto-ws#readme",
   "dependencies": {
+    "aws": "0.0.3-2",
+    "aws-sdk": "^2.97.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "log4js": "^2.3.3",
     "moment": "^2.18.1",
     "mongoose": "^4.10.6",
     "node-dev": "^3.1.3",

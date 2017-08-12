@@ -4,7 +4,24 @@
 require('./database');
 require('./server');
 
-
+// var AWS = require('aws-sdk');
+// // AWS.config.update({region:'us-west-2'});
+// AWS.config.update({
+//     accessKeyId: "AKIAJQXEMDUMGL3OIYVQ",
+//     secretAccessKey: "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",
+//     "region": "us-west-2"
+// });
+//
+// var ec2 = new AWS.EC2();
+//
+// var params = {
+//     InstanceId: 'i-08ee98b89c6950efd' /* required */
+//     // DryRun: false
+// };
+// ec2.getConsoleOutput(params, function(err, data) {
+//     if (err) console.log(err, err.stack); // an error occurred
+//     else     console.log(data);           // successful response
+// });
 
 
 

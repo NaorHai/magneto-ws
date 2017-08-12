@@ -6,6 +6,14 @@
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
 let moment = require('moment');
+var log4js = require('log4js');
+var logger = log4js.getLogger();
+logger.level = 'info';
+log4js.configure({
+    appenders: { logs: { type: 'file', filename: 'logs.log' } },
+    categories: { default: { appenders: ['logs'], level: 'info' } }
+});
+
 
 let cgetAllTracks = 0;
 let cgetAllMixes = 0;
@@ -14,6 +22,7 @@ let cgetRandomTracks = 0;
 let cgetRandomMixes = 0;
 let ccreateNewMix = 0;
 let cdropMix = 0;
+
 
     exports.goToHome = function (req, res) {
         res.sendfile(`../${__dirname}/index.html`);
@@ -28,8 +37,8 @@ let cdropMix = 0;
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
                 cgetAllTracks++;
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
-                console.info("dsmdklsmds");
+                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
+                // console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 res.json(data);
             })
     };
@@ -39,7 +48,8 @@ let cdropMix = 0;
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
                 cgetAllMixes++;
-                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
+                logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
+                // console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
                 res.json(data);
             })
     };
