@@ -7,8 +7,7 @@ let MIX = require('../models/mix');
 let TRACK = require('../models/track');
 let moment = require('moment');
 let lawgs = require('../node_modules/lawgs/index.js');
-let log4js = require('log4js');
-const logger = log4js.getLogger();
+
 logger.level = 'info';
 log4js.configure({
     appenders: { logs: { type: 'file', filename: 'logs.log' } },
@@ -50,7 +49,7 @@ let cdropMix = 0;
             (err, data) => {
                 if (err) console.log(`query error: ${err}`);
                 cgetAllTracks++;
-                log.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
+                log.log(`The Api: getAllTracks called:${cgetAllTracks}`);
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 res.json(data);
