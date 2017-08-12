@@ -7,7 +7,7 @@ const consts   = require('./config').properties.AWS,
 
 mongoose.Promise = global.Promise;
 //The server option auto_reconnect is defaulted to true
-let options = {
+var options = {
     server: {
         auto_reconnect:true,
     }
