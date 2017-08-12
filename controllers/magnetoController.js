@@ -5,7 +5,6 @@
 
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
-let moment = require('moment');
 let lawgs = require('../node_modules/lawgs/index.js');
 
 
@@ -18,9 +17,6 @@ lawgs.config({
 });
 
 const logger  = lawgs.getOrCreate('MagnetoLogs'); /* LogGroup */
-logger.log('magneto-stream', 'hello');
-
-
 
 let cgetAllTracks = 0;
 let cgetAllMixes = 0;
