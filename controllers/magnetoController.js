@@ -24,8 +24,8 @@ log4js.configure({
 //     }
 // });
 
-var logger  = lawgs.getOrCreate('log'); /* LogGroup */
-logger.log('log', { team: 'log', weight: 7 })
+// var logger  = lawgs.getOrCreate('log'); /* LogGroup */
+// logger.log('log', { team: 'log', weight: 7 })
 
 
 let cgetAllTracks = 0;
