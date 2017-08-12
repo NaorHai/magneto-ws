@@ -14,20 +14,6 @@ log4js.configure({
     categories: { default: { appenders: ['logs'], level: 'info' } }
 });
 
-// var lawgs = require('../index');
-//
-// lawgs.config({
-//     aws: {
-//         accessKeyId: 'AKIAJQXEMDUMGL3OIYVQ', /* Optional if credentials are set in ~/.aws/credentials */
-//         secretAccessKey: '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', /* Optional */
-//         region: 'us-west-2' /* Required */
-//     }
-// });
-
-// var logger  = lawgs.getOrCreate('log'); /* LogGroup */
-// logger.log('log', { team: 'log', weight: 7 })
-
-
 let cgetAllTracks = 0;
 let cgetAllMixes = 0;
 let cgetTracksByMixName = 0;
