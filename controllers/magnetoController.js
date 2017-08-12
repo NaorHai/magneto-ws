@@ -14,6 +14,19 @@ log4js.configure({
     categories: { default: { appenders: ['logs'], level: 'info' } }
 });
 
+var lawgs = require('../index');
+
+lawgs.config({
+    aws: {
+        accessKeyId: 'AKIAJQXEMDUMGL3OIYVQ', /* Optional if credentials are set in ~/.aws/credentials */
+        secretAccessKey: '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', /* Optional */
+        region: 'us-west-2' /* Required */
+    }
+});
+
+var logger  = lawgs.getOrCreate('log'); /* LogGroup */
+logger.log('log', { team: 'log', weight: 7 })
+
 
 let cgetAllTracks = 0;
 let cgetAllMixes = 0;
@@ -38,7 +51,7 @@ let cdropMix = 0;
                 if (err) console.log(`query error: ${err}`);
                 cgetAllTracks++;
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
-                // console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllTracks called:${cgetAllTracks}`);
                 res.json(data);
             })
     };
@@ -49,7 +62,7 @@ let cdropMix = 0;
                 if (err) console.log(`query error: ${err}`);
                 cgetAllMixes++;
                 logger.info(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
-                // console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
+                console.log(`${moment().format('DD-MM-YYYY hh:mm:ss')} The Api: getAllMixes called:${cgetAllMixes}`);
                 res.json(data);
             })
     };
