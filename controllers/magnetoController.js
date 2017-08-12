@@ -6,7 +6,6 @@
 let MIX = require('../models/mix');
 let TRACK = require('../models/track');
 let moment = require('moment');
-let config = require('../config').properties;
 let lawgs = require('../node_modules/lawgs/index.js');
 let log4js = require('log4js');
 const logger = log4js.getLogger();
@@ -18,9 +17,9 @@ log4js.configure({
 
 lawgs.config({
     aws: {
-        accessKeyId: config.accessKeyId, /* Optional if credentials are set in ~/.aws/credentials */
-        secretAccessKey: config.secretAccessKey, /* Optional */
-        region: config.region /* Required */
+        accessKeyId: 'AKIAJQXEMDUMGL3OIYVQ', /* Optional if credentials are set in ~/.aws/credentials */
+        secretAccessKey: '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', /* Optional */
+        region: 'us-west-2' /* Required */
     }
 });
 
