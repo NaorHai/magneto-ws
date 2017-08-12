@@ -36,7 +36,6 @@ let cdropMix = 0;
     };
 
     exports.errorHandling = function (req, res) {
-        logger.log('magneto-stream', {"error": "404 - not found (Wrong input or Wrong url)"});
         res.json({"error": "404 - not found (Wrong input or Wrong url)"});
     };
 
