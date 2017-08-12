@@ -23,8 +23,8 @@ lawgs.config({
     }
 });
 
-const log  = lawgs.getOrCreate('SuperbowlLogs'); /* LogGroup */
-log.log('magneto', 'hello');
+const log  = lawgs.getOrCreate('MagnetoLogs'); /* LogGroup */
+log.log('magneto-stream', 'hello');
 
 
 
